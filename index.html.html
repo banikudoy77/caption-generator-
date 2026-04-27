@@ -1,0 +1,102 @@
+﻿
+<div style="max-width:900px;margin:auto;padding:20px;border:1px solid #ddd;border-radius:8px;font-family:Arial, sans-serif;word-wrap:break-word;">
+  <h2>Multi-Platform Caption & Hashtag Generator</h2>
+
+  <!-- Intro Sections -->
+  <h3>What is it?</h3>
+  <p>This tool instantly generates platform-specific captions and hashtags for Facebook, Twitter (X), Instagram, Pinterest, and Reddit.</p>
+
+  <h3>Why Use This Tool?</h3>
+  <ul>
+    <li>Save time creating engaging social media posts</li>
+    <li>Boost visibility with optimized hashtags</li>
+    <li>Adapt content style for each platform automatically</li>
+  </ul>
+
+  <h3>How to Use?</h3>
+  <ol>
+    <li>Enter a keyword or topic (e.g., skincare, travel, fitness).</li>
+    <li>Click "Generate" to see captions and hashtags tailored for each platform.</li>
+    <li>Copy or download the results to use directly in your posts.</li>
+  </ol>
+
+  <h3>FAQ</h3>
+  <p><b>Q:</b> Can I use this for any topic?<br>
+     <b>A:</b> Yes, just type your keyword and the tool adapts captions accordingly.</p>
+  <p><b>Q:</b> Are hashtags platform-specific?<br>
+     <b>A:</b> Yes, Instagram gets more hashtags, Reddit avoids them, etc.</p>
+
+  <!-- Input -->
+  <p><b>Enter a keyword or topic:</b></p>
+  <input type="text" id="keyword" placeholder="e.g. skincare, travel, fitness" style="width:100%;padding:10px;margin-bottom:10px;">
+  <button onclick="generateContent()" style="padding:10px 20px;background:#4CAF50;color:#fff;border:none;border-radius:5px;">Generate</button>
+  
+  <!-- Results -->
+  <div id="results" style="margin-top:20px;display:none;">
+    <h3>Facebook:</h3><div id="facebook" style="background:#f9f9f9;padding:10px;border-radius:5px;white-space:pre-line;"></div>
+    <h3>Twitter (X):</h3><div id="twitter" style="background:#f1f1f1;padding:10px;border-radius:5px;white-space:pre-line;"></div>
+    <h3>Instagram:</h3><div id="instagram" style="background:#f9f9f9;padding:10px;border-radius:5px;white-space:pre-line;"></div>
+    <h3>Pinterest:</h3><div id="pinterest" style="background:#f1f1f1;padding:10px;border-radius:5px;white-space:pre-line;"></div>
+    <h3>Reddit:</h3><div id="reddit" style="background:#f9f9f9;padding:10px;border-radius:5px;white-space:pre-line;"></div>
+
+    <!-- Copy & Download -->
+    <button onclick="copyResults()" style="margin-top:10px;padding:10px;background:#2196F3;color:#fff;border:none;border-radius:5px;">Copy to Clipboard</button>
+    <button onclick="downloadResults()" style="margin-top:10px;padding:10px;background:#FF5722;color:#fff;border:none;border-radius:5px;">Download as Text</button>
+  </div>
+</div>
+
+<script>
+function generateContent() {
+  const keyword = document.getElementById("keyword").value.trim();
+  if (!keyword) {
+    alert("Please enter a keyword!");
+    return;
+  }
+
+  // Facebook
+  const fbCaption = `We love sharing ${keyword} tips with our community. What’s your favorite ${keyword} hack?`;
+  const fbHashtags = `#${keyword} #Community #LifeStyle`;
+
+  // Twitter
+  const twCaption = `${keyword} is trending! 🚀`;
+  const twHashtags = `#${keyword} #Trending #Now`;
+
+  // Instagram
+  const igCaption = `Living the ${keyword} life ✨`;
+  const igHashtags = `#${keyword} #${keyword}Goals #Inspo #Daily${keyword} #Love${keyword}`;
+
+  // Pinterest
+  const pinCaption = `Discover creative ${keyword} ideas you can try today. Save this for later!`;
+  const pinHashtags = `#${keyword}Ideas #DIY${keyword} #PinterestInspired`;
+
+  // Reddit
+  const rdCaption = `Discussion: What are the best ${keyword} resources you’ve found? Share your experience below.`;
+  const rdHashtags = `(Reddit posts usually avoid hashtags)`;
+
+  // Display
+  document.getElementById("facebook").innerText = fbCaption + "\n" + fbHashtags;
+  document.getElementById("twitter").innerText = twCaption + "\n" + twHashtags;
+  document.getElementById("instagram").innerText = igCaption + "\n" + igHashtags;
+  document.getElementById("pinterest").innerText = pinCaption + "\n" + pinHashtags;
+  document.getElementById("reddit").innerText = rdCaption + "\n" + rdHashtags;
+
+  document.getElementById("results").style.display = "block";
+}
+
+function copyResults() {
+  const results = document.getElementById("results").innerText;
+  navigator.clipboard.writeText(results).then(() => {
+    alert("Results copied to clipboard!");
+  });
+}
+
+function downloadResults() {
+  const results = document.getElementById("results").innerText;
+  const blob = new Blob([results], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "captions_hashtags.txt";
+  link.click();
+}
+</script>
+
